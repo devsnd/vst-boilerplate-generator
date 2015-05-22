@@ -1,0 +1,11 @@
+CFLAGS = -D "DEVELOPMENT=1" -D "LINUX=1" -fPIC -c -Ivst_sdk -D__cdecl="" -fvisibility=hidden
+SDK = vst_sdk/public.sdk/source/vst2.x/
+
+all:
+	g++ $(CFLAGS) effect.cpp
+	g++ $(CFLAGS) linuxmain.cpp
+	g++ $(CFLAGS) $(SDK)vstplugmain.cpp
+	g++ $(CFLAGS) $(SDK)audioeffect.cpp
+	g++ $(CFLAGS) $(SDK)audioeffectx.cpp
+	g++ -lpthread -shared -o {{effect.class_name()}}.so vstplugmain.o audioeffect.o audioeffectx.o effect.o linuxmain.o
+
